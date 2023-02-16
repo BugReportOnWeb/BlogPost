@@ -6,19 +6,19 @@ dummy_data = [
     {
         "author": "Dev",
         "title":  "Some post tilte",
-        "description": "Some post description",
+        "content": "Some post description",
         "date": "The creation date"
     },
     {
         "author": "Udhbhav",
         "title":  "Some other post tilte",
-        "description": "Some other post description",
+        "content": "Some other post description",
         "date": "The new creation date"
     },
     {
         "author": "Aman",
         "title":  "Some another post tilte",
-        "description": "Some another post description",
+        "content": "Some another post description",
         "date": "The latest creation date"
     }
 ]
