@@ -2,6 +2,7 @@ from flask import Flask
 from dotenv import load_dotenv
 from os import getenv, path
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 load_dotenv()
 SECRET_KEY = getenv("SECRET_KEY")
@@ -26,6 +27,15 @@ def create_app():
     from .models import User, Post
 
     create_database(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = "auth.login"
+    login_manager.init_app(app)
+
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
 
     return app
 
