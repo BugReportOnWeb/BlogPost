@@ -47,8 +47,12 @@
                         </div>
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav ms-auto">
-                            <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
-                            <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                            {% if current_user.is_authenticated %}
+                                <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                            {% else %}
+                                <a class="nav-item nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                                <a class="nav-item nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -62,9 +66,15 @@
                     {% with messages = get_flashed_messages(with_categories=true) %}
                         {% if messages %}
                             {% for category, message in messages %}
-                                <div class="alert alert-{{ category }}">
-                                    {{ message }}     
-                                </div>
+                                {% if category == "success" %}
+                                    <div class="alert alert-success">
+                                        {{ message }}     
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-danger">
+                                        {{ message }}     
+                                    </div>
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     {% endwith %}
