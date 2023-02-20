@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, url_for
+from flask_login import login_required
 
 views = Blueprint("views", __name__)
 
@@ -25,6 +26,7 @@ dummy_data = [
 
 @views.route("/")
 @views.route("/home")
+@login_required
 def home():
     return render_template("home.html", posts=dummy_data)
 
