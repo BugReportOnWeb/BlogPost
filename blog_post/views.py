@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, url_for
-from flask_login import login_required
+from flask import Blueprint, render_template, url_for, request, flash, redirect, url_for
+from flask_login import login_required, current_user
+from .forms import UpdateAccountForm
+from . import db
 
 views = Blueprint("views", __name__)
 
@@ -37,8 +39,22 @@ def about():
     return render_template("about.html")
 
 
-@views.route("/account")
+@views.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
-    return render_template("account.html")
+    form = UpdateAccountForm()
+
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+
+        flash("You account has been updated!", category="success")
+        return redirect(url_for("views.account"))
+    elif request.method == "GET":
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template("account.html", image_file=image_file, form=form)
 
