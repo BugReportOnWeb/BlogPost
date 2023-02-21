@@ -21,8 +21,9 @@ def login():
         if user:
             if check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
+                next_page = request.args.get("next")
                 flash("You have been logged in!", category="success")
-                return redirect(url_for("views.home"))
+                return redirect(next_page) if next_page else redirect(url_for("views.home"))
             else:
                 flash("Password is incorrect.", category="danger")
         else:
