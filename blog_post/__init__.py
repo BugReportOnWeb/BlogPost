@@ -33,10 +33,10 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_message_category = "info"
 
-
     @login_manager.user_loader
     def load_user(id):
-        return User.query.get(int(id))
+        if id != 'None':
+            return User.query.get(int(id))
 
     return app
 
