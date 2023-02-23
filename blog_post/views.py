@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, url_for, request, flash, redirect,
 from flask_login import login_required, current_user
 from .forms import UpdateAccountForm
 from . import db
-from PIL import Image
+from PIL import Image, ImageOps
+from io import BytesIO
 
 import secrets
 import os
@@ -49,8 +50,9 @@ def save_picture(picture):
     picture_name = random_hex + file_extension
     picture_path = os.path.join(views.root_path, "static/profile_pics", picture_name)
     
-    output_size = (125, 125)
-    resized_image = Image.open(picture)
+    output_size = [180, 180]
+    image = Image.open(picture)
+    resized_image = ImageOps.exif_transpose(image)
     resized_image.thumbnail(output_size)
 
     resized_image.save(picture_path)
