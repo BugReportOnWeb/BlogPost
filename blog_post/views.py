@@ -50,10 +50,11 @@ def save_picture(picture):
     picture_name = random_hex + file_extension
     picture_path = os.path.join(views.root_path, "static/profile_pics", picture_name)
     
-    output_size = [180, 180]
+    output_size = (125, 125)
     image = Image.open(picture)
     resized_image = ImageOps.exif_transpose(image)
-    resized_image.thumbnail(output_size)
+    # Need some testing here b/w 'Image.resize' and 'Image.thumnail'
+    resized_image.resize(output_size)
 
     resized_image.save(picture_path)
 
