@@ -1,3 +1,4 @@
 .env
 blog_post/__pycache__
 blog_post/site.db
+blog_post/static/profile_pics/*
