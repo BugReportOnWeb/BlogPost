@@ -34,11 +34,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .article-title {
   color: #444444;
+  text-decoration: none;
 }
 
 a.article-title:hover {
   color: #428bca;
-  text-decoration: none;
 }
 
 .article-content {
@@ -54,12 +54,11 @@ a.article-title:hover {
 .article-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
+  border-bottom: 1px solid #e3e3e3;
 }
 
 .article-metadata a:hover {
   color: #333;
-  text-decoration: none;
 }
 
 .article-svg {
