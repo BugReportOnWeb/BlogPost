@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Post{% endblock %}
+{% block content %}
+    <article class="media content-section d-flex">
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename="profile_pics/" + post.author.image_file) }}"></img>
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="text-decoration-none" href="#">{{ post.author.username }}</a>
+                <small class="text-muted mx-1">{{ post.date_posted.strftime("%d-%m-%Y") }}</small>
+            </div>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content">{{ post.content }}</p>
+        </div>
+    </article>
+{% endblock %}
