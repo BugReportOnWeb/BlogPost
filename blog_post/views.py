@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, url_for, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from .forms import UpdateAccountForm
+from .forms import UpdateAccountForm, PostForm
 from . import db
+from .models import Post
 from PIL import Image, ImageOps
 from io import BytesIO
 
@@ -34,9 +35,9 @@ dummy_data = [
 
 @views.route("/")
 @views.route("/home")
-@login_required
 def home():
-    return render_template("home.html", posts=dummy_data)
+    posts = Post.query.all()
+    return render_template("home.html", posts=posts)
 
 
 @views.route("/about")
@@ -83,4 +84,26 @@ def account():
 
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template("account.html", image_file=image_file, form=form)
+
+
+@views.route("/post/new", methods=["GET", "POST"])
+@login_required
+def create_post():
+    form = PostForm()
+
+    if form.validate_on_submit():
+        new_post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(new_post)
+        db.session.commit()
+
+        flash("Your post has been created!", category="success")
+        return redirect(url_for("views.home"))
+
+    return render_template("create_post.html", form=form)
+
+
+@views.route("/post/<int:post_id>")
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template("post.html", post=post)
 
