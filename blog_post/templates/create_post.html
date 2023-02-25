@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}New Post{% endblock %}
+{% block title %}{{ legend_title }}{% endblock %}
 {% block content %}
     <div class="content-section">
         <form method="POST">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom pb-2">New Post</legend>
+                <legend class="border-bottom pb-2">{{ legend_title }}</legend>
                 <div class="form-group my-2">
                     {{ form.title.label(class="form-control-label my-1") }}
 
