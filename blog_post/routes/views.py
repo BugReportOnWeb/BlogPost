@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, url_for, request, flash, redirect, url_for, abort
 from flask_login import login_required, current_user
-from .forms import UpdateAccountForm, PostForm
-from . import db
-from .models import Post, User
+from ..forms import UpdateAccountForm, PostForm
+from .. import db
+from ..models import Post, User
 from PIL import Image, ImageOps
 from io import BytesIO
 
