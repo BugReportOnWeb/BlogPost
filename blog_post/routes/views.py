@@ -29,7 +29,7 @@ def save_picture(picture):
     random_hex = secrets.token_hex(8);
     _, file_extension = os.path.splitext(picture.filename) 
     picture_name = random_hex + file_extension
-    picture_path = os.path.join(views.root_path, "static/profile_pics", picture_name)
+    picture_path = os.path.join(views.root_path, "../static/profile_pics", picture_name)
     
     output_size = (125, 125)
     image = Image.open(picture)
